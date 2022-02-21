@@ -1,0 +1,23 @@
+  GNU nano 4.8                                       docker-compose.yml                                                 version: '3.8'
+services:
+    php-apache-environment:
+        container_name: php-apache
+        build:
+            context: ./php
+            dockerfile: Dockerfile
+        depends_on:
+            - db1
+        volumes:
+            - ./php-sample-application:/var/www/html/
+        ports:
+            - 80:80
+    db1:
+        container_name: db1
+        image: mariadb
+        environment:
+            MYSQL_ROOT_PASSWORD: clouxter
+            MYSQL_DATABASE: sample
+            MYSQL_USER: sampleuser
+            MYSQL_PASSWORD: samplepass
+        ports:
+            - "3306:3306"
